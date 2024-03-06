@@ -1,4 +1,8 @@
 package org.flavorforge.flavorforge.data;
 
-public record Image() {
+import java.util.List;
+
+public record Image(
+        List<String> imageUrls
+) {
 }
