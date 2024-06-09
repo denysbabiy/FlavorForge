@@ -10,15 +10,15 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/recipe/generate")
+@RequestMapping("/v1/generate")
 @RequiredArgsConstructor
 public class RecipeRestController {
 
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
     @PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Recipe generateRecipe(@RequestBody RecipeRequest recipeRequest) {
-        return recipeService.generateRecipe(recipeRequest);
+    public Recipe generateRecipe(@RequestBody RecipeRequest recipeRequest, @RequestParam String lang) {
+        return recipeService.generateRecipe(recipeRequest, lang);
     }
 
     @PostMapping(value = "/image", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

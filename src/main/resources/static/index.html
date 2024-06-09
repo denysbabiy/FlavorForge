@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 10px; /* Add margin to the body for the entire page */
+        }
+        .header {
+            background-color: #fcecdf;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e7e7e7;
+        }
+        .container-fluid {
+            padding: 0 10px; /* Add padding to the container-fluid */
+        }
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add margin for spacing between sections */
+        }
+        .form-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        #recipeOutput {
+            background-color: #fff;
+            padding: 20px;
+            min-height: 150px;
+            border-radius: 5px;
+        }
+        .ingredient-input-group {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .ingredient-input-group input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="header text-center">
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <select id="languageSwitch" onchange="switchLanguage()">
+            <option value="en">English</option>
+            <option value="ua">Українська</option>
+        </select>
+    </div>
+    <img src="logo.png" alt="Logo" style="height: 8em; vertical-align: middle;">
+    <h1 style="display: inline;">Кузня Смаку</h1>
+</div>
+<div class="container-fluid">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="form" class="form-section">
+                    <div class="form-group">
+                        <label id="dishTypeLabel" for="dishType">Dish Type:</label>
+                        <input type="text" id="dishType" name="dishType" class="form-control">
+                    </div>
+                    <label id="ingredientsLabel">Ingredients:</label>
+                    <div id="ingredients">
+                        <!-- Ingredients will be added here dynamically -->
+                    </div>
+                    <button id="addIngredientButton" onclick="addIngredient()" class="btn btn-primary mb-2">Add Ingredient</button>
+                    <br>
+                    <button id="generateRecipeButton" onclick="generateRecipe()" class="btn btn-success">Generate Recipe</button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div id="recipeOutput">
+                    <h1 id="title" class="text-center my-4"></h1>
+                    <h2 id="recipeTitle">Recipe</h2>
+                    <p id="summary"></p>
+                    <h3 id="ingredientsTitle">Ingredients</h3>
+                    <ul id="recipeIngredients"></ul>
+                    <h3 id="instructionsTitle">Instructions</h3>
+                    <p id="instructions"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var language = 'en';
+    var translations = {
+        en: {
+            dishType: 'Dish Type:',
+            ingredients: 'Ingredients:',
+            addIngredient: 'Add Ingredient',
+            generateRecipe: 'Generate Recipe',
+            recipe: 'Recipe',
+            instructions: 'Instructions'
+        },
+        ua: {
+            dishType: 'Тип страви:',
+            ingredients: 'Інгредієнти:',
+            addIngredient: 'Додати інгредієнт',
+            generateRecipe: 'Створити рецепт',
+            recipe: 'Рецепт',
+            instructions: 'Інструкція'
+        }
+    };
+
+    function switchLanguage() {
+        language = document.getElementById('languageSwitch').value;
+        document.getElementById('dishTypeLabel').innerText = translations[language].dishType;
+        document.getElementById('ingredientsLabel').innerText = translations[language].ingredients;
+        document.getElementById('addIngredientButton').innerText = translations[language].addIngredient;
+        document.getElementById('generateRecipeButton').innerText = translations[language].generateRecipe;
+        document.getElementById('recipeTitle').innerText = translations[language].recipe;
+        document.getElementById('ingredientsTitle').innerText = translations[language].ingredients;
+        document.getElementById('instructionsTitle').innerText = translations[language].instructions;
+    }
+
+    function generateRecipe() {
+        var dishType = document.getElementById('dishType').value;
+        var ingredients = Array.from(document.getElementsByClassName('ingredient')).map(input => input.value);
+
+        var recipeRequest = {
+            dishType: dishType,
+            ingredients: ingredients
+        };
+
+        fetch('/v1/generate/recipe?lang=' + language, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recipeRequest)
+        })
+            .then(response => response.json())
+            .then(recipe => {
+                document.getElementById('title').innerText = recipe.title;
+                document.getElementById('summary').innerText = recipe.summary;
+                document.getElementById('instructions').innerText = recipe.instructions.join('\n');
+                var ingredientsList = document.getElementById('recipeIngredients');
+                ingredientsList.innerHTML = '';
+                recipe.ingredients.forEach(ingredient => {
+                    var li = document.createElement('li');
+                    li.innerText = ingredient.name + ': ' + ingredient.amount;
+                    ingredientsList.appendChild(li);
+                });
+            });
+    }
+
+    function addIngredient() {
+        var ingredientsDiv = document.getElementById('ingredients');
+        var newDiv = document.createElement('div');
+        newDiv.className = 'form-group';
+        var newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.className = 'ingredient form-control';
+        var newButton = document.createElement('button');
+        newButton.innerText = 'X';
+        newButton.className = 'btn btn-danger ml-2';
+        newButton.onclick = function () {
+            ingredientsDiv.removeChild(newDiv);
+        };
+        newDiv.appendChild(newInput);
+        newDiv.appendChild(newButton);
+        ingredientsDiv.appendChild(newDiv);
+    }
+
+    addIngredient();
+    addIngredient();
+</script>
+</body>
+</html>

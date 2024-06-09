@@ -9,8 +9,6 @@ import org.flavorforge.flavorforge.data.RecipeRequest;
 import org.flavorforge.flavorforge.service.RecipeService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
@@ -18,8 +16,8 @@ public class RecipeServiceImpl implements RecipeService {
     private final GptAiService gptAiService;
 
     @Override
-    public Recipe generateRecipe(RecipeRequest recipeRequest) {
-        return gptAiService.generateRecipe(recipeRequest.ingredients(), null, recipeRequest.dishType());
+    public Recipe generateRecipe(RecipeRequest recipeRequest, String languageIsoCode) {
+        return gptAiService.generateRecipe(recipeRequest.ingredients(), null, recipeRequest.dishType(), languageIsoCode);
     }
 
     @Override

@@ -5,5 +5,5 @@ import org.flavorforge.flavorforge.data.Recipe;
 import java.util.List;
 
 public interface TextAiService {
-    Recipe generateRecipe(List<String> productNames, List<String> excludedProducts, String dishType);
+    Recipe generateRecipe(List<String> productNames, List<String> excludedProducts, String dishType, String languageIsoCode);
 }

@@ -6,7 +6,7 @@ import org.flavorforge.flavorforge.data.Recipe;
 import org.flavorforge.flavorforge.data.RecipeRequest;
 
 public interface RecipeService {
-    Recipe generateRecipe(RecipeRequest recipeRequest);
+    Recipe generateRecipe(RecipeRequest recipeRequest, String languageIsoCode);
 
     Image generateImage(ImageRequest imageRequest);
 }
