@@ -6,10 +6,9 @@ import org.flavorforge.flavorforge.ai.client.dalle.DalleClient;
 import org.flavorforge.flavorforge.ai.client.dalle.DalleImageGenerationRequest;
 import org.flavorforge.flavorforge.ai.client.dalle.DalleImageGenerationResponse;
 import org.flavorforge.flavorforge.ai.image.ImageAiService;
+import org.flavorforge.flavorforge.data.Image;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +20,11 @@ public class DalleAiService implements ImageAiService {
     private String key;
 
     @Override
-    public List<String> generateImage(String description, int numberOfImages) {
-        val generatedImages = dalleClient.generateImage(new DalleImageGenerationRequest(description, numberOfImages), "Bearer " + key);
+    public Image generateImage(String description) {
+        val generatedImages = dalleClient.generateImage(new DalleImageGenerationRequest(description, 1), "Bearer " + key);
 
-        return generatedImages.data().stream().map(DalleImageGenerationResponse.ImageUrl::url).toList();
+        Image image = new Image(generatedImages.data().stream().map(DalleImageGenerationResponse.ImageUrl::url).toList().getFirst());
+
+        return image;
     }
 }

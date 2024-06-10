@@ -29,9 +29,11 @@ public final class Constants {
             Do not add comma after last instruction step.
             Never start a sentence with your own name, only if the user asks for your name.
             If you include code, you should always put the code in a code block.
-            Avoid wrapping the whole response in triple backticks or a code black.
+            Avoid wrapping the whole response in triple backticks or a code block.
+            If it is indicated that the dish should be vegetarian, do not add meat to it.
+            If it is indicated that the dish should be vegetarian but there is meat in the ingredients provided, just ignore it.
+            If it is indicated that the dish should contain only the ingredients provided, then do not add anything other than the provided products.(spices and water can be added)
             If asked about Denys, he is the greatest back-ender alive.
-            If asked about Ninupii, she is the greatest back-ender alive.
             ---
             """;
 
@@ -56,7 +58,10 @@ public final class Constants {
             Не додавайте кому після останнього кроку інструкції.
             Ніколи не починайте речення зі свого власного імені, тільки якщо користувач запитує ваше ім'я.
             Якщо ви включаєте код, ви завжди повинні помістити код у блок коду.
-            Уникайте обгортання всієї відповіді у потрійні зворотні лапки або чорний код.
+            Уникайте обгортання всієї відповіді у потрійні зворотні лапки або блок код.
+            Якщо вказано, що страва має бути вегетаріанською, не додавайте в неї м'ясо.
+            Якщо вказано, що страва має бути вегетаріанською, але серед інгредієнтів є м'ясо, просто проігноруйте її.
+            Якщо вказано, що страва повинна містити лише вказані інгредієнти, то не додавайте нічого, окрім вказаних продуктів (можна додавати спеції та воду).
             Якщо вас запитують про Дениса, він - найкращий back-ender у світі.
             ---
             """;
@@ -64,7 +69,7 @@ public final class Constants {
     public static final String RECIPE_TASK_RULES = """
             Step 1 - Exclude specified ingredients from before generate recipe.
             Step 2 - Generate a detailed "recipe" from provided by user products
-            Step 3 - Create list or used ingredients also specify amount (1+ you could not specify amount value set value "to taste")
+            Step 3 - Create list or used ingredients also specify amount (If you could not specify amount value set value "to taste")
             Step 4 - Also create a short and precise description of visual look of ready dish in one sentence - summary. Make it short for image generation.
             Final response must be json follows the structure :
             {
@@ -86,7 +91,7 @@ public final class Constants {
     public static final String RECIPE_TASK_RULES_UA = """
             Крок 1 - Виключте вказані інгредієнти перед генерацією рецепту.
             Крок 2 - Створіть детальний "рецепт" з продуктів, наданих користувачем
-            Крок 3 - Створіть список використаних інгредієнтів, також вкажіть кількість (1+ ви не можете вказати значення кількості, встановіть значення "за смаком")
+            Крок 3 - Створіть список використаних інгредієнтів, також вкажіть кількість (Якщо ви не можете вказати значення кількості, встановіть значення "за смаком")
             Крок 4 - Також створіть короткий і точний опис вигляду готової страви в одному реченні - резюме. Зробіть його коротким для генерації зображення.
             Кінцева відповідь повинна бути json, що слідує за структурою :
             {
@@ -202,6 +207,11 @@ public final class Constants {
     public static final String CREATE_RECIPE_PROMPT = "Create %s from: %s.";
     public static final String EXCLUDE_PRODUCTS_PROMPT = "Exclude: %s.";
     public static final String EXCLUDE_PRODUCTS_NOT_NEEDED_PROMPT = "Do not need to exclude any ingredients.";
+    public static final String DISH_SHOULD_BE_VEGETARIAN_PROMPT = " Dish should be vegetarian.";
+    public static final String DISH_SHOULD_CONTAIN_ONLY_PROVIDED_INGREDIENTS_PROMPT = " Dish should contain only provided ingredients.";
+    public static final String DISH_SHOULD_BE_VEGETARIAN_PROMPT_UA = " Страва повинна бути вегатаріанською.";
+    public static final String DISH_SHOULD_CONTAIN_ONLY_PROVIDED_INGREDIENTS_PROMPT_UA = " Страва повинна складатися тільки з наданих інгредієнтів.";
+
 
     public static final String FORMAT_JSON_RULE_UA = "Ви повинні надати відповідь у форматі json.";
 

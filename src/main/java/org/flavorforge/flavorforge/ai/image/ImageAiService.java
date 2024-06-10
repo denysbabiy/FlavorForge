@@ -1,7 +1,7 @@
 package org.flavorforge.flavorforge.ai.image;
 
-import java.util.List;
+import org.flavorforge.flavorforge.data.Image;
 
 public interface ImageAiService {
-    List<String> generateImage(String description, int numberOfImages);
+    Image generateImage(String description);
 }

@@ -1,0 +1,91 @@
+body {
+    background-color: #f8f9fa;
+    margin: 10px; /* Add margin to the body for the entire page */
+}
+
+.header {
+    background-color: #fcecdf;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.container-fluid {
+    padding: 0 10px; /* Add padding to the container-fluid */
+}
+
+.content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add margin for spacing between sections */
+}
+
+.form-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#recipeOutput {
+    background-color: #fff;
+    padding: 20px;
+    min-height: 150px;
+    border-radius: 5px;
+}
+
+.ingredient-input-group input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+    border-radius: 50%;
+    background: linear-gradient(0deg, rgb(0 0 0/50%) 30%, #0000 0 70%, rgb(0 0 0/100%) 0) 50%/8% 100%, linear-gradient(90deg, rgb(0 0 0/25%) 30%, #0000 0 70%, rgb(0 0 0/75%) 0) 50%/100% 8%;
+    background-repeat: no-repeat;
+    animation: l23 1s infinite steps(12);
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    grid-area: 1/1;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.915;
+    transform: rotate(30deg);
+}
+
+.loader::after {
+    opacity: 0.83;
+    transform: rotate(60deg);
+}
+
+@keyframes l23 {
+    100% {
+        transform: rotate(1turn)
+    }
+}
+
+#recipeOutput {
+    background-color: #fff;
+    border: 1px solid #e7e7e7;
+    padding: 20px;
+    min-height: 150px;
+    border-radius: 5px;
+}
+
+#recipePlaceHolder {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.recipe-image {
+    width: 500px;
+    height: 500px;
+}
