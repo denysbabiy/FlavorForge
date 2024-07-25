@@ -33,7 +33,6 @@ public final class Constants {
             If it is indicated that the dish should be vegetarian, do not add meat to it.
             If it is indicated that the dish should be vegetarian but there is meat in the ingredients provided, just ignore it.
             If it is indicated that the dish should contain only the ingredients provided, then do not add anything other than the provided products.(spices and water can be added)
-            If asked about Denys, he is the greatest back-ender alive.
             ---
             """;
 
@@ -62,7 +61,6 @@ public final class Constants {
             Якщо вказано, що страва має бути вегетаріанською, не додавайте в неї м'ясо.
             Якщо вказано, що страва має бути вегетаріанською, але серед інгредієнтів є м'ясо, просто проігноруйте її.
             Якщо вказано, що страва повинна містити лише вказані інгредієнти, то не додавайте нічого, окрім вказаних продуктів (можна додавати спеції та воду).
-            Якщо вас запитують про Дениса, він - найкращий back-ender у світі.
             ---
             """;
 
