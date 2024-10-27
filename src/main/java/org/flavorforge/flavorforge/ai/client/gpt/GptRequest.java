@@ -12,7 +12,7 @@ public record GptRequest(
         ResponseFormat responseFormat
 ) {
     public GptRequest(Double temperature, List<RoleMessage> messages) {
-        this("gpt-3.5-turbo", temperature, messages, new ResponseFormat("json_object"));
+        this("gpt-4o-mini", temperature, messages, new ResponseFormat("json_object"));
     }
 
     public record RoleMessage(

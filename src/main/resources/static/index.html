@@ -21,38 +21,54 @@
     <h1 id="companyNameLabel" style="display: inline;">Flavor Forge</h1>
 </div>
 <div class="container-fluid">
+    <div class="toggle">
+        <label class="switch">
+            <input type="checkbox" id="toggleSwitch" onchange="toggleForms()">
+            <span class="slider round"></span>
+        </label>
+        <span id="toggleLabel">Generate by Text</span>
+    </div>
     <div class="content">
         <div class="row">
             <div class="col-md-4">
                 <div id="form" class="form-section">
-                    <div class="form-group">
-                        <label id="dishTypeLabel" for="dishType">Dish Type:</label>
-                        <input type="text" id="dishType" name="dishType" class="form-control">
-                    </div>
-                    <label id="ingredientsLabel">Ingredients:</label>
-                    <div id="ingredients">
-                        <div class="input-group mb-3">
-                            <input class="ingredient form-control" type="text">
+                    <div id="textForm">
+                        <div class="form-group">
+                            <label id="dishTypeLabel" for="dishType">Dish Type:</label>
+                            <input type="text" id="dishType" name="dishType" class="form-control">
                         </div>
-                        <div class="input-group mb-3">
-                            <input class="ingredient form-control" type="text">
+                        <label id="ingredientsLabel">Ingredients:</label>
+                        <div id="ingredients">
+                            <div class="input-group mb-3">
+                                <input class="ingredient form-control" type="text">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input class="ingredient form-control" type="text">
+                            </div>
                         </div>
+                        <button id="addIngredientButton" onclick="addIngredient()" class="btn btn-primary mb-2">Add Ingredient</button>
+                        <br>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="vegetarian">
+                            <label id="vegetarianLabel" class="form-check-label" for="vegetarian">Vegetarian</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="providedIngredients">
+                            <label id="providedIngredientsLabel" class="form-check-label" for="providedIngredients">Include only provided ingredients</label>
+                        </div>
+                        <button id="generateRecipeButton" onclick="generateRecipe()" class="btn btn-success btn btn-primary btn-lg btn-block">Generate Recipe</button>
                     </div>
-                    <button id="addIngredientButton" onclick="addIngredient()" class="btn btn-primary mb-2">Add
-                        Ingredient
-                    </button>
-                    <br>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="vegetarian">
-                        <label id="vegetarianLabel" class="form-check-label" for="vegetarian">Vegetarian</label>
+                    <div id="photoForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="photoUpload">Upload Photo:</label>
+                            <input type="file" id="photoUpload" name="photoUpload" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label id="dishTypeLabel2" for="dishType">Dish Type:</label>
+                            <input type="text" id="dishType2" name="dishType" class="form-control">
+                        </div>
+                        <button id="generateRecipeByPhotoButton" onclick="generateRecipeByPhoto()" class="btn btn-success btn btn-primary btn-lg btn-block">Generate Recipe by Photo</button>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="providedIngredients">
-                        <label id="providedIngredientsLabel" class="form-check-label" for="providedIngredients">Include only provided ingredients</label>
-                    </div>
-                    <button id="generateRecipeButton" onclick="generateRecipe()" class="btn btn-success btn btn-primary btn-lg btn-block">Generate
-                        Recipe
-                    </button>
                 </div>
             </div>
             <div class="col-md-8 justify-content-center">

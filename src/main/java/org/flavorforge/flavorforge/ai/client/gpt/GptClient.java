@@ -11,4 +11,8 @@ public interface GptClient {
     @PostMapping(path = "/completions")
     GptResponse generateText(@RequestBody GptRequest request,
                              @RequestHeader("Authorization") String key);
+
+    @PostMapping(path = "/completions")
+    GptResponse generateText(@RequestBody GptVisionRequest request,
+            @RequestHeader("Authorization") String key);
 }
