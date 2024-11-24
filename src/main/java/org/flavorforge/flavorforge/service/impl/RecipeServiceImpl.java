@@ -29,13 +29,13 @@ public class RecipeServiceImpl implements RecipeService {
     private final DalleAiService dalleAiService;
 
     @Override
-    public Recipe generateRecipe(RecipeRequest recipeRequest, String languageIsoCode) {
+    public Recipe generateRecipe(final RecipeRequest recipeRequest, final String languageIsoCode) {
         return gptAiService.generateRecipe(recipeRequest.ingredients(), null, recipeRequest.dishType(),
                 languageIsoCode, recipeRequest.isVegetarian(), recipeRequest.onlyProvidedIngredients());
     }
 
     @Override
-    public Image generateImage(ImageRequest imageRequest) {
+    public Image generateImage(final ImageRequest imageRequest) {
         return dalleAiService.generateImage(imageRequest.description());
     }
 

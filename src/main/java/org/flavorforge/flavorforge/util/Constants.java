@@ -69,6 +69,7 @@ public final class Constants {
             Step 2 - Generate a detailed "recipe" from provided by user products
             Step 3 - Create list or used ingredients also specify amount (If you could not specify amount value set value "to taste")
             Step 4 - Also create a short and precise description of visual look of ready dish in one sentence - summary. Make it short for image generation.
+            Step 5 - Add total count of protein, fat and carbohydrates in grams to the response. It should be calculated based on the ingredients used and their count.
             Final response must be json follows the structure :
             {
                 "title":"recipe name",
@@ -82,7 +83,10 @@ public final class Constants {
                     "step1 description",
                     "step2 description"
                 ],
-                "summary":"summary text"
+                "summary":"summary text",
+                "protein": "total protein in grams",
+                "fat": "total fat in grams",
+                "carbohydrates": "total carbohydrates in grams"
             }
             """;
 
@@ -91,6 +95,7 @@ public final class Constants {
             Крок 2 - Створіть детальний "рецепт" з продуктів, наданих користувачем
             Крок 3 - Створіть список використаних інгредієнтів, також вкажіть кількість (Якщо ви не можете вказати значення кількості, встановіть значення "за смаком")
             Крок 4 - Також створіть короткий і точний опис вигляду готової страви в одному реченні - резюме. Зробіть його коротким для генерації зображення.
+            Крок 5 - Додайте загальну кількість білків, жирів та вуглеводів в грамах до відповіді. Вона повинна бути розрахована на основі використаних інгредієнтів та їх кількості.
             Кінцева відповідь повинна бути json, що слідує за структурою :
             {
                 "title":"назва рецепту",
@@ -104,7 +109,10 @@ public final class Constants {
                     "опис кроку1",
                     "опис кроку2"
                     ],
-                "summary":"текст резюме"
+                "summary":"текст резюме",
+                "protein": "загальний білок в грамах",
+                "fat": "загальний жир в грамах",
+                "carbohydrates": "загальні вуглеводи в грамах"
             }
             """;
 
@@ -153,7 +161,11 @@ public final class Constants {
                     "4. Add the chopped basil to the skillet and cook for 1-2 minutes, or until wilted.",
                     "5. Add the cooked pasta to the skillet and toss to coat in the basil and almond sauce. Season with salt and black pepper to taste.",
                     "6. Serve hot, garnished with additional chopped basil and grated Parmesan cheese if desired."
-                ]
+                ],
+                "protein": "12g",
+                "fat": "20g",
+                "carbohydrates": "45g"
+            }
             """;
 
     public static final String ASSISTANT_RECIPE_TASK_RESPONSE_INPUT_UA = """
@@ -198,7 +210,10 @@ public final class Constants {
                     "4. Додайте порізаний базилік на сковороду і готуйте протягом 1-2 хвилин, або до зів'янення.",
                     "5. Додайте варену пасту на сковороду і перемішайте, щоб покрити соусом з базиліку та мигдалю. Приправте сіллю та чорним перцем за смаком.",
                     "6. Подавайте гарячою, прикрашену додатковим порізаним базиліком та тертим пармезаном, якщо бажаєте."
-                ]
+                ],
+                "protein": "12г",
+                "fat": "20г",
+                "carbohydrates": "45г"
             }""";
     public static final String FORMAT_JSON_RULE = "You must provide response in json format.";
 

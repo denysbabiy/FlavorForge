@@ -94,7 +94,7 @@ public class GptAiService implements TextAiService {
         if (lang.equalsIgnoreCase("ua")) {
             gptVisionRequest = new GptVisionRequest(temperature, List.of(
                     new GptVisionRequest.RoleMessage(SYSTEM_ROLE, List.of(new GptVisionRequest.RoleMessage.ContentText("text", BASE_RULES_UA))),
-                    new GptVisionRequest.RoleMessage(USER_ROLE, List.of(new GptVisionRequest.RoleMessage.ContentText("text", "Які продукти на цьому зображені? Дай відповідь в json форматі."),
+                    new GptVisionRequest.RoleMessage(USER_ROLE, List.of(new GptVisionRequest.RoleMessage.ContentText("text", "Які продукти на цьому зображені? Відповідь - json масив рядків."),
                             new GptVisionRequest.RoleMessage.ContentImage("image_url", new GptVisionRequest.RoleMessage.ContentImage.ImageUrl("data:image/jpeg;base64," + encodedImage))))
             ));
         } else {
@@ -124,20 +124,6 @@ public class GptAiService implements TextAiService {
         }
     }
 
-    /*private List<String> getIngredientsFromImage(GptVisionRequest gptVisionRequest) {
-        val gptResponse = gptClient.generateText(gptVisionRequest, "Bearer " + key);
-
-        final String gptMessage = gptResponse.choices().getFirst().message().content();
-
-        val objectMapper = new ObjectMapper();
-
-        try {
-            return objectMapper.readValue(gptMessage, new TypeReference<>(){});
-        } catch (Exception exception) {
-            throw new RuntimeException();
-        }
-    }*/
-
     private List<String> getIngredientsFromImage(GptVisionRequest gptVisionRequest) {
         val gptResponse = gptClient.generateText(gptVisionRequest, "Bearer " + key);
 
@@ -146,10 +132,8 @@ public class GptAiService implements TextAiService {
         val objectMapper = new ObjectMapper();
 
         try {
-            // Десеріалізація JSON у Map
             Map<String, List<String>> map = objectMapper.readValue(gptMessage, new TypeReference<Map<String, List<String>>>(){});
 
-            // Отримання списку продуктів
             return map.get("products");
         } catch (Exception exception) {
             throw new RuntimeException(exception);

@@ -11,6 +11,6 @@ public record DalleImageGenerationRequest(
         String style
 ) {
     public DalleImageGenerationRequest(String prompt, int n) {
-        this("dall-e-2", prompt, n, "1024x1024", "url", "natural");
+        this("dall-e-3", prompt, n, "1024x1024", "url", "natural");
     }
 }

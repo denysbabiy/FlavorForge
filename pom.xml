@@ -11,7 +11,7 @@
     <groupId>org.flavorforge</groupId>
     <artifactId>FlavorForge</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>FlavorForge</name>
     <description>FlavorForge</description>
     <properties>
@@ -53,8 +53,6 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>4.1.0</version>
         </dependency>
-
-
 
         <dependency>
             <groupId>javax.validation</groupId>

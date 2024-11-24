@@ -6,7 +6,10 @@ public record Recipe(
         String title,
         List<Ingredient> ingredients,
         String summary,
-        List<String> instructions
+        List<String> instructions,
+        String protein,
+        String fat,
+        String carbohydrates
 ) {
     public record Ingredient(
             String name,

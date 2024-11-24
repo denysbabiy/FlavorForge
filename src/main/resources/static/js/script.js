@@ -1,4 +1,5 @@
 var language = 'en';
+var recipe;
 var translations = {
     en: {
         vegetarianLabel: 'Vegetarian',
@@ -10,7 +11,13 @@ var translations = {
         addIngredient: 'Add Ingredient',
         generateRecipe: 'Generate Recipe',
         recipe: 'Recipe',
-        instructions: 'Instructions'
+        instructions: 'Instructions',
+        uploadPhoto: 'Upload Photo:',
+        generateRecipeByPhoto: 'Generate Recipe by Photo',
+        nutrition: 'Nutrition',
+        fat: 'Fat',
+        protein: 'Protein',
+        carbohydrates: 'Carbohydrates'
     },
     ua: {
         vegetarianLabel: 'Вегетаріанська',
@@ -22,7 +29,13 @@ var translations = {
         addIngredient: 'Додати інгредієнт',
         generateRecipe: 'Створити рецепт',
         recipe: 'Рецепт',
-        instructions: 'Інструкція'
+        instructions: 'Інструкція',
+        uploadPhoto: 'Завантажити фото:',
+        generateRecipeByPhoto: 'Створити рецепт за фото',
+        nutrition: 'Харчова цінність',
+        fat: 'Жири',
+        protein: 'Білки',
+        carbohydrates: 'Вуглеводи'
     }
 };
 
@@ -31,6 +44,7 @@ function switchLanguage() {
     document.getElementById('recipePlaceHolder').innerText = translations[language].recipePlaceHolder;
     document.getElementById('companyNameLabel').innerText = translations[language].companyName;
     document.getElementById('dishTypeLabel').innerText = translations[language].dishType;
+    document.getElementById('dishTypeLabel2').innerText = translations[language].dishType;
     document.getElementById('ingredientsLabel').innerText = translations[language].ingredients;
     document.getElementById('vegetarianLabel').innerText = translations[language].vegetarianLabel;
     document.getElementById('providedIngredientsLabel').innerText = translations[language].providedIngredientsLabel;
@@ -39,6 +53,13 @@ function switchLanguage() {
     document.getElementById('recipeTitle').innerText = translations[language].recipe;
     document.getElementById('ingredientsTitle').innerText = translations[language].ingredients;
     document.getElementById('instructionsTitle').innerText = translations[language].instructions;
+    document.getElementById('nutritionTitle').innerText = translations[language].nutrition;
+    document.getElementById('photoUploadLabel').innerText = translations[language].uploadPhoto;
+    document.getElementById('generateRecipeByPhotoButton').innerText = translations[language].generateRecipe;
+    document.getElementById('toggleLabel').innerText = translations[language].generateRecipeByPhoto;
+    document.getElementById('fat').innerText = translations[language].fat + ':' + (recipe ? recipe.fat : '');
+    document.getElementById('protein').innerText = translations[language].protein + ':' + (recipe ? recipe.protein : '');
+    document.getElementById('carbohydrates').innerText = translations[language].carbohydrates + ':' + (recipe ? recipe.carbohydrates : '');
 }
 
 function generateRecipe() {
@@ -65,7 +86,8 @@ function generateRecipe() {
         body: JSON.stringify(recipeRequest)
     })
         .then(response => response.json())
-        .then(recipe => {
+        .then(data => {
+            recipe = data;
             document.getElementById('loader').style.display = 'none'; // Hide loading animation
             document.getElementById('title').innerText = recipe.title;
             document.getElementById('summary').innerText = recipe.summary;
@@ -75,12 +97,20 @@ function generateRecipe() {
             document.getElementById('recipeTitle').innerText = translations[language].recipe;
             document.getElementById('ingredientsTitle').innerText = translations[language].ingredients;
             document.getElementById('instructionsTitle').innerText = translations[language].instructions;
+            document.getElementById('nutritionTitle').innerText = translations[language].nutrition;
+            document.getElementById('protein').innerText = translations[language].protein + ':' + recipe.protein;
+            document.getElementById('carbohydrates').innerText = translations[language].carbohydrates  + ':' + recipe.carbohydrates;
+            document.getElementById('fat').innerText = translations[language].fat  + ':' + recipe.fat;
             document.getElementById('recipeTitle').style.display = 'block';
             document.getElementById('ingredientsTitle').style.display = 'block';
             document.getElementById('instructionsTitle').style.display = 'block';
             document.getElementById('title').style.display = 'block';
             document.getElementById('summary').style.display = 'block';
             document.getElementById('instructions').style.display = 'block';
+            document.getElementById('nutritionTitle').style.display = 'block';
+            document.getElementById('fat').style.display = 'block';
+            document.getElementById('protein').style.display = 'block';
+            document.getElementById('carbohydrates').style.display = 'block';
 
             var ingredientsList = document.getElementById('recipeIngredients');
             ingredientsList.innerHTML = '';
@@ -146,22 +176,32 @@ function generateRecipeByPhoto() {
         body: formData
     })
         .then(response => response.json())
-        .then(recipe => {
+        .then(data => {
+            recipe = data;
             document.getElementById('loader').style.display = 'none';
             document.getElementById('title').innerText = recipe.title;
             document.getElementById('summary').innerText = recipe.summary;
             document.getElementById('instructions').innerText = recipe.instructions.join('\n');
 
+
             // Display the headers
             document.getElementById('recipeTitle').innerText = translations[lang].recipe;
             document.getElementById('ingredientsTitle').innerText = translations[lang].ingredients;
             document.getElementById('instructionsTitle').innerText = translations[lang].instructions;
+            document.getElementById('nutritionTitle').innerText = translations[lang].nutrition;
+            document.getElementById('protein').innerText = translations[lang].protein + ':' + recipe.protein;
+            document.getElementById('carbohydrates').innerText = translations[lang].carbohydrates  + ':' + recipe.carbohydrates;
+            document.getElementById('fat').innerText = translations[lang].fat  + ':' + recipe.fat;
             document.getElementById('recipeTitle').style.display = 'block';
             document.getElementById('ingredientsTitle').style.display = 'block';
             document.getElementById('instructionsTitle').style.display = 'block';
             document.getElementById('title').style.display = 'block';
             document.getElementById('summary').style.display = 'block';
             document.getElementById('instructions').style.display = 'block';
+            document.getElementById('nutritionTitle').style.display = 'block';
+            document.getElementById('fat').style.display = 'block';
+            document.getElementById('protein').style.display = 'block';
+            document.getElementById('carbohydrates').style.display = 'block';
 
             var ingredientsList = document.getElementById('recipeIngredients');
             ingredientsList.innerHTML = '';
@@ -229,15 +269,22 @@ function toggleForms() {
     const toggleSwitch = document.getElementById('toggleSwitch');
     const textForm = document.getElementById('textForm');
     const photoForm = document.getElementById('photoForm');
-    const toggleLabel = document.getElementById('toggleLabel');
 
     if (toggleSwitch.checked) {
         textForm.style.display = 'none';
         photoForm.style.display = 'block';
-        toggleLabel.textContent = 'Generate by Photo';
     } else {
         textForm.style.display = 'block';
         photoForm.style.display = 'none';
-        toggleLabel.textContent = 'Generate by Text';
     }
+}
+
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var preview = document.getElementById('preview');
+        preview.src = reader.result;
+        document.getElementById('imagePreview').style.display = 'block';
+    }
+    reader.readAsDataURL(event.target.files[0]);
 }
